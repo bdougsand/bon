@@ -18,14 +18,13 @@ divs n x =
     in
         (length fs, x^(length fs))
 
-dofactor fs 1 ps = (fs, 1, ps)
+dofactor fs 1 ps = fs
+dofactor fs n [] = fs
 dofactor fs n (p:ps) =
     let (count, pow) = divs n p in
         dofactor (fs ++ (take count (repeat p))) (n `div` pow) ps
 
-factors n =
-  let (fs, _, _) = dofactor [] n primes in
-      fs
+factors n = dofactor [] n primes
 
 
 main = putStrLn (show (factors 20))
