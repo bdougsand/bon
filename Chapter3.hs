@@ -9,7 +9,7 @@ primes = sieve [2..]
 
 godelize :: [Int] -> Int
 godelize xs =
-    product [x^p | (x, p) <- (zip xs primes)]
+    product [p^x | (x, p) <- (zip xs primes)]
 
 divs n x =
     let
