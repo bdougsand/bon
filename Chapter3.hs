@@ -31,14 +31,16 @@ factors :: Integer -> [Integer]
 factors n = dofactor [] n primes
 
 
--- doHeadCount n [] c cs = cs
--- doHeadCount n (n : ns) c cs = n ns (c+1) cs
--- doHeadCount n (m : ns) c cs = m ns 1 (cs ++ [c])
+countHead :: Eq a => [a] -> [a] -> [Int]
+countHead [] _ = []
+countHead _ [] = []
+countHead (v : vs) ns =
+          [length (takeWhile (== v) ns)] ++ (countHead vs (dropWhile (== v) ns))
 
 
--- counts (n : ns) = doHeadCount n ns 1 []
+ungodelize :: Integer -> [Int]
+ungodelize n = countHead primes (factors n)
+
 
 main :: IO ()
 main = putStrLn (show (factors 20))
-
--- main = putStrLn (show (take 2 (repeat 5)))λ>
